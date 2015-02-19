@@ -1,0 +1,15 @@
+{% if obj_type == "issue" %}
+    {{ _("Deleted Issue: ") }} #{{obj.ref}}: {{obj.subject}}
+{% elif obj_type == "task" %}
+    {{ _("Deleted Task: ") }} #{{obj.ref}}: {{obj.subject}}
+{% elif obj_type == "userstory" %}
+    {{ _("Deleted User Story: ") }} #{{obj.ref}}: {{obj.subject}}
+{% elif obj_type == "wikipage" %}
+    {{ _("Deleted Wiki Page: ") }} {{obj.slug}}
+{% elif obj_type == "milestone" %}
+    {{ _("Deleted Sprint: ") }} {{obj.name}}
+{% endif %}
+<br><b>{{ _("Creator: ") }}</b>{{ obj.owner.get_full_name() }}
+{% if obj.description %}
+    <br><b>{{ _("Description: ") }}</b>{{ obj.description }}
+{%endif %}

@@ -1,0 +1,21 @@
+{% if obj_type == "issue" %}
+    {% set final_url = resolve_front_url("issue", obj.project.slug, obj.ref) %}
+    {{ _("New Issue created: ") }} <a href="{{final_url}}">#{{obj.ref}}: {{obj.subject}}</a>
+{% elif obj_type == "task" %}
+    {% set final_url = resolve_front_url("task", obj.project.slug, obj.ref) %}
+    {{ _("New Task created: ") }} <a href="{{final_url}}">#{{obj.ref}}: {{obj.subject}}</a>
+{% elif obj_type == "userstory" %}
+    {% set final_url = resolve_front_url("userstory", obj.project.slug, obj.ref) %}
+    {{ _("New User Story created: ") }} <a href="{{final_url}}">#{{obj.ref}}: {{obj.subject}}</a>
+{% elif obj_type == "wikipage" %}
+    {% set final_url = resolve_front_url("wikipage", obj.project.slug, obj.slug) %}
+    {{ _("New Wiki Page created: ") }} <a href="{{final_url}}">{{obj.slug}}</a>
+{% elif obj_type == "milestone" %}
+    {% set final_url = resolve_front_url("taskboard", obj.project.slug, obj.slug) %}
+    {{ _("New Sprint: ") }} <a href="{{final_url}}">{{obj.name}}</a>
+    <br><b>From:</b> {{obj.estimated_start}} <b>To:</b> {{ obj.estimated_finish }}
+{% endif %}
+<br><b>{{ _("Creator: ") }}</b>{{ obj.owner.get_full_name() }}
+{% if obj.description %}
+    <br><b>{{ _("Description: ") }}</b>{{ obj.description }}
+{%endif %}
