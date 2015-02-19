@@ -26,9 +26,10 @@ class HipChatAdmin
         "$tgRepo",
         "$appTitle",
         "$tgConfirm",
+        "$tgHttp",
     ]
 
-    constructor: (@rootScope, @scope, @repo, @appTitle, @confirm) ->
+    constructor: (@rootScope, @scope, @repo, @appTitle, @confirm, @http) ->
         @scope.sectionName = "HipChat"
         @scope.sectionSlug = "hipchat"
 
@@ -43,6 +44,13 @@ class HipChatAdmin
 
             promise.then null, =>
                 @confirm.notify("error")
+
+    testHook: () ->
+        promise = @http.post(@repo.resolveUrlForModel(@scope.hipchathook) + '/test')
+        promise.success (_data, _status) =>
+            @confirm.notify("success")
+        promise.error (data, status) =>
+            @confirm.notify("error")
 
 module.controller("ContribHipChatAdminController", HipChatAdmin)
 
