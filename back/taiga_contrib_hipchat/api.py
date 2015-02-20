@@ -14,9 +14,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from rest_framework.response import Response
-
 from taiga.base import filters
+from taiga.base import response
 from taiga.base.api import ModelCrudViewSet
 from taiga.base.decorators import detail_route
 
@@ -40,4 +39,4 @@ class HipChatHookViewSet(ModelCrudViewSet):
 
         tasks.test_hipchathook(hipchathook.url)
 
-        return Response()
+        return response.NoContent()
