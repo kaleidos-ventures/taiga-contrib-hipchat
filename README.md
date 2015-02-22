@@ -1,18 +1,14 @@
 Taiga contrib HipChat
 =====================
 
-The Taiga plugin for hipchat integration.
+The Taiga plugin for HipChat integration.
 
 Installation
 ------------
 
 ### Taiga Back
 
-In your Taiga back python virtualenv install the pip package `taiga-contrib-hipchat` with:
-
-```bash
-  pip install taiga-contrib-hipchat
-```
+Clone this repo, then copy back/taiga_contrib_hipchat folder in the root of your Taiga back project.
 
 Modify your settings/local.py and include the line:
 
@@ -20,7 +16,7 @@ Modify your settings/local.py and include the line:
   INSTALLED_APPS += ["taiga_contrib_hipchat"]
 ```
 
-The run the migrations to generate the new need table:
+Then run the migrations to generate the new need table:
 
 ```bash
   python manage.py migrate taiga_contrib_hipchat
