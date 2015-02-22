@@ -50,6 +50,61 @@ def _send_request(url, data):
         logger.error("Error sending request to HipChat")
 
 
+def _desc_or_content_to_attachment(template_field, field_name, values):
+    context = Context({"field_name": field_name, "values": values})
+    change_field_text = template_field.render(context)
+
+    return change_field_text.strip()
+
+
+def _field_to_attachment(template_field, field_name, values):
+    context = Context({"field_name": field_name, "values": values})
+    change_field_text = template_field.render(context)
+
+    return change_field_text.strip()
+
+
+@app.task
+def change_hipchathook(url, obj, change):
+    obj_type = _get_type(obj)
+
+    template_change = loader.get_template('taiga_contrib_hipchat/change.jinja')
+    context = Context({"obj": obj, "obj_type": obj_type, "change": change})
+
+    change_text = template_change.render(context)
+    data = {"message": change_text.strip()}
+    data["color"] = "yellow"
+
+    # Get description and content
+    if change.diff:
+        template_field = loader.get_template('taiga_contrib_hipchat/field-diff.jinja')
+        included_fields = ["description", "content"]
+
+        for field_name, values in change.diff.items():
+            if field_name in included_fields:
+                attachment = _desc_or_content_to_attachment(template_field, field_name, values)
+
+                data["message"] += attachment
+
+    if change.values_diff:
+        template_field = loader.get_template('taiga_contrib_hipchat/field-diff.jinja')
+        excluded_fields = ["description_diff", "description_html", "content_diff",
+                           "content_html", "backlog_order", "kanban_order",
+                           "taskboard_order", "us_order", "finish_date",
+                           "is_closed"]
+
+        for field_name, values in change.values_diff.items():
+            if field_name in excluded_fields:
+                continue
+
+            attachment = _field_to_attachment(template_field, field_name, values)
+
+            if attachment:
+                data["message"] += attachment
+
+    _send_request(url, data)
+
+
 @app.task
 def create_hipchathook(url, obj):
     obj_type = _get_type(obj)

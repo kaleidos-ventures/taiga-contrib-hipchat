@@ -1,0 +1,45 @@
+{% if field_name == "points" %}
+    {% for role, points in values.items() %}
+        <b>{{ role }} role points</b>
+        <br><b>From:</b> "{{ points.0 }}"
+        <br><b>To:</b> "{{ points.1 }}"
+        <br>
+    {% endfor %}
+{% elif field_name == "attachments" %}
+    {% if values.new %}
+        {% for att in values['new']%}
+            <b>{{ _("Added new attachment") }}:</b> <a href="{{ att.url }}">{{ att.filename }}</a> {% if att.description %}{{ att.description }}{% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% if values.changed %}
+        {% for att in values['changed'] %}
+            <b>{{ _("Updated attachment") }}:</b> <a href="{{ att.url }}">{{ att.filename }}</a> {% if att.changes.is_deprecated %} {% if att.changes.is_deprecated.1 %}_deprecated_{% else %}_not deprecated_{% endif %}{% endif %}{% if att.changes.description %}{{ att.changes.description.1 }}{% endif %}
+        {% endfor %}
+    {% endif %}
+    {% if values.deleted %}
+        {% for att in values['deleted']%}
+            <b>{{ _("Deleted attachment") }}:</b> {{ att.filename }}
+        {% endfor %}
+    {% endif %}
+{% elif field_name in ["tags", "watchers"] %}
+    <b>{{ field_name|title }}</b>
+    <br><b>From:</b> "{{ ', '.join(values.0) }}"
+    <br><b>To:</b> "{{ ', '.join(values.1) }}"
+{% elif field_name == "description" %}
+    <b>Description</b>
+    <br><b>From:</b> "{{ values.0 }}"
+    <br><b>To:</b> "{{ values.1 }}"
+{% elif field_name == "content" %}
+    <b>Content</b>
+    <br><b>From:</b> "{{ values.0 }}"
+    <br><b>To:</b> "{{ values.1 }}"
+{% elif field_name == "assigned_to" %}
+    <b>Assigned to</b>
+    <br><b>From:</b> {% if values.0 != None and values.0 != "" %} {{ values.0 }} {% else %} {{ _("Unassigned") }} {% endif %}
+    <br><b>To:</b> {% if values.1 != None and values.1 != "" %}{{ values.1 }} {% else %} {{ _("Unassigned") }} {% endif %}
+{% else %}
+    <b>{{ field_name|title }}</b>
+    <br><b>From:</b> "{{ values.0 }}"
+    <br><b>To:</b> "{{ values.1 }}"
+{% endif %}
