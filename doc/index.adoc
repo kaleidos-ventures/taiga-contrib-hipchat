@@ -1,0 +1,173 @@
+Taiga Contrib HipChat REST API
+==============================
+:toc: left
+:numbered:
+:source-highlighter: pygments
+:pygments-style: friendly
+
+Endpoints summary
+-----------------
+
+[cols="3*", options="header"]
+|===
+| URL
+| Method
+| Functionality
+
+| /api/v1/hipchat
+| GET
+| link:#hipchat-list[List HipChat endpoints]
+
+| /api/v1/hipchat
+| POST
+| link:#hipchat-create[Create HipChat endpoint]
+
+| /api/v1/hipchat/<hipchatId>
+| GET
+| link:#hipchat-get[Get HipChat endpoint]
+
+| /api/v1/hipchat/<hipchatId>
+| PUT
+| link:#hipchat-edit[Modify HipChat endpoint]
+
+| /api/v1/hipchat/<hipchatId>
+| PATCH
+| link:#hipchat-edit[Modify partially an HipChat endpoint]
+
+| /api/v1/hipchat/<hipchatId>
+| DELETE
+| link:#hipchat-delete[Delete an HipChat endpoint]
+
+| /api/v1/hipchat/<hipchatId>/test
+| POST
+| link:#hipchat-test[Test HipChat endpoint]
+
+|===
+
+Endpoints
+---------
+
+[[hipchat-list]]
+=== List
+
+To list HipChat endpoint send a GET request with the following parameters:
+
+[source,bash]
+----
+curl -X GET \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer ${AUTH_TOKEN}" \
+  https://api.taiga.io/api/v1/hipchat
+----
+
+The HTTP response is a 200 OK and the response body is a JSON list of link:#object-hipchat-endpoint-detail[HipChat endpoint detail objects]
+
+The results can be filtered using the following parameters:
+
+- *project*: project id
+
+[source,bash]
+----
+curl -X GET \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer ${AUTH_TOKEN}" \
+  https://api.taiga.io/api/v1/hipchat?project=1
+----
+
+[[hipchat-create]]
+=== Create
+
+To create HipChat endpoint send a POST request with the following data:
+
+- *project* (required): project id
+- *url* (required): payload url
+
+[source,bash]
+----
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer ${AUTH_TOKEN}" \
+  -d '{
+          "project": 1,
+          "url": "http://hipchat.com/hipchat"
+      }' \
+  https://api.taiga.io/api/v1/hipchat
+----
+
+When the creation is successful, the HTTP response is a 201 Created and the response body is a JSON link:#object-hipchat-endpoint-detail[HipChat endpoint detail object]
+
+[[hipchat-get]]
+=== Get
+
+To get a hipchat endpoint send a GET request specifying the HipChat endpoint id in the url
+
+[source,bash]
+----
+curl -X GET \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer ${AUTH_TOKEN}" \
+  https://api.taiga.io/api/v1/hipchat/1
+----
+
+The HTTP response is a 200 OK and the response body is a JSON link:#object-hipchat-endpoint-detail[HipChat endpoint detail object]
+
+[[hipchat-edit]]
+=== Edit
+
+To edit a HipChat endpoint send a PUT or a PATCH specifying the HipChat endpoint id in the url.
+In a PATCH request you just need to send the modified data, in a PUT one the whole object must be sent.
+
+[source,bash]
+----
+curl -X PATCH \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer ${AUTH_TOKEN}" \
+  -d '{
+          "name": "My service name"
+      }' \
+  https://api.taiga.io/api/v1/hipchat/1
+----
+
+When the creation is successful, the HTTP response is a 200 OK and the response body is a JSON link:#object-hipchat-endpoint-detail[HipChat endpoint detail object]
+
+[[hipchat-delete]]
+=== Delete
+
+To delete a HipChat endpoint send a DELETE specifying the HipChat endpoint id in the url
+
+[source,bash]
+----
+curl -X DELETE \
+  -H "Authorization: Bearer ${AUTH_TOKEN}" \
+  https://api.taiga.io/api/v1/hipchat/1
+----
+
+When delete succeeded, the HTTP response is a 204 NO CONTENT with an empty body response
+
+[[hipchat-test]]
+=== Test
+
+To test a HipChat endpoint send a POST request specifying the HipChat endpoint id in the url
+
+[source,bash]
+----
+curl -X GET \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer ${AUTH_TOKEN}" \
+  https://api.taiga.io/api/v1/hipchat/1/test
+----
+
+The HTTP response is a 204 NO CONTENT.
+
+[[object-hipchat-endpoint-detail]]
+HipChat endpoint object
+-----------------------
+
+[source,json]
+----
+{
+    "id": 1,
+    "project": 1,
+    "url": "https://api.hipchat.com/v2/room/XXXXXXXXX/notification?auth_token=XXXXXXXXXXXXXXXXXXXXXXXX"
+}
+----
