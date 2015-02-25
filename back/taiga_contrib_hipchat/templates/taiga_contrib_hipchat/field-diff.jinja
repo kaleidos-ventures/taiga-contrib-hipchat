@@ -38,6 +38,25 @@
     <b>Assigned to</b>
     <br><b>From:</b> {% if values.0 != None and values.0 != "" %} {{ values.0 }} {% else %} {{ _("Unassigned") }} {% endif %}
     <br><b>To:</b> {% if values.1 != None and values.1 != "" %}{{ values.1 }} {% else %} {{ _("Unassigned") }} {% endif %}
+{% elif field_name == "custom_attributes" %}
+    {% if values.new %}
+        {% for att in values.new %}
+            <b>{{ att.name|title }}</b>
+            <br><b>To:</b> "{{ att.value }}"
+        {% endfor %}
+    {% endif %}
+    {% if values.changed %}
+        {% for att in values.changed %}
+            <b>{{ att.name|title }}</b>
+            <br><b>From:</b> "{{ att.changes.value.0 }}"
+            <br><b>To:</b> "{{ att.changes.value.1 }}"
+        {% endfor %}
+    {% endif %}
+    {% if values.deleted %}
+        {% for att in values.deleted %}
+            <b>{{ att.name|title }}</b> <i>{{ _("deleted") }}</i>
+        {% endfor %}
+    {% endif %}
 {% else %}
     <b>{{ field_name|title }}</b>
     <br><b>From:</b> "{{ values.0 }}"
