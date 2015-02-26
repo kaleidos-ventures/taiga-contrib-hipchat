@@ -14,7 +14,7 @@
 
     {% if values.changed %}
         {% for att in values['changed'] %}
-            <b>{{ _("Updated attachment") }}:</b> <a href="{{ att.url }}">{{ att.filename }}</a> {% if att.changes.is_deprecated %} {% if att.changes.is_deprecated.1 %}_deprecated_{% else %}_not deprecated_{% endif %}{% endif %}{% if att.changes.description %}{{ att.changes.description.1 }}{% endif %}
+            <b>{{ _("Updated attachment") }}:</b> <a href="{{ att.url }}">{{ att.filename }}</a> {% if att.changes.is_deprecated %} {% if att.changes.is_deprecated.1 %}<i>{{ _("deprecated") }}</i>{% else %}<i>{{ _("not deprecated") }}</i>{% endif %}{% endif %}{% if att.changes.description %}{{ att.changes.description.1 }}{% endif %}
         {% endfor %}
     {% endif %}
     {% if values.deleted %}
