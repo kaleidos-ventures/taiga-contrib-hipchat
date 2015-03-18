@@ -8,7 +8,11 @@ Installation
 
 ### Taiga Back
 
-Clone this repo, then copy back/taiga_contrib_hipchat folder in the root of your Taiga back project.
+In your Taiga back python virtualenv install the pip package taiga-contrib-hipchat with:
+
+```bash
+  pip install taiga-contrib-hipchat
+```
 
 Modify your settings/local.py and include the line:
 
