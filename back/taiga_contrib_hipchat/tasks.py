@@ -50,7 +50,7 @@ def _send_request(url, data):
         logger.error("Error sending request to HipChat")
 
 
-def _desc_or_content_to_attachment(template_field, field_name, values):
+def _markdown_field_to_attachment(template_field, field_name, values):
     context = Context({"field_name": field_name, "values": values})
     change_field_text = template_field.render(context)
 
@@ -75,23 +75,24 @@ def change_hipchathook(url, obj, change):
     data = {"message": change_text.strip()}
     data["color"] = "yellow"
 
-    # Get description and content
+    # Get markdown fields
     if change.diff:
         template_field = loader.get_template('taiga_contrib_hipchat/field-diff.jinja')
-        included_fields = ["description", "content"]
+        included_fields = ["description", "content", "blocked_note"]
 
         for field_name, values in change.diff.items():
             if field_name in included_fields:
-                attachment = _desc_or_content_to_attachment(template_field, field_name, values)
+                attachment = _markdown_field_to_attachment(template_field, field_name, values)
 
                 data["message"] += attachment
 
+    # Get rest of  fields
     if change.values_diff:
         template_field = loader.get_template('taiga_contrib_hipchat/field-diff.jinja')
         excluded_fields = ["description_diff", "description_html", "content_diff",
-                           "content_html", "backlog_order", "kanban_order",
-                           "taskboard_order", "us_order", "finish_date",
-                           "is_closed"]
+                           "content_html", "blocked_note_diff", "blocked_note_html",
+                           "backlog_order", "kanban_order", "taskboard_order", "us_order",
+                           "finish_date", "is_closed"]
 
         for field_name, values in change.values_diff.items():
             if field_name in excluded_fields:

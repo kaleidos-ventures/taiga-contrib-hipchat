@@ -26,14 +26,10 @@
     <b>{{ field_name|title }}</b>
     <br><b>From:</b> "{{ ', '.join(values.0) }}"
     <br><b>To:</b> "{{ ', '.join(values.1) }}"
-{% elif field_name == "description" %}
-    <b>Description</b>
-    <br><b>From:</b> "{{ values.0 }}"
-    <br><b>To:</b> "{{ values.1 }}"
-{% elif field_name == "content" %}
-    <b>Content</b>
-    <br><b>From:</b> "{{ values.0 }}"
-    <br><b>To:</b> "{{ values.1 }}"
+{% elif field_name in ["description", "content", "blocked_note"] %}
+    <b>{{ field_name.replace("_", " ") }}</b>
+    {% if values.0 %}<br><b>From:</b> "{{ values.0 }}"{% endif %}
+    <br><b>To:</b> "{{ values.1 or "empty" }}"
 {% elif field_name == "assigned_to" %}
     <b>Assigned to</b>
     <br><b>From:</b> {% if values.0 != None and values.0 != "" %} {{ values.0 }} {% else %} {{ _("Unassigned") }} {% endif %}
