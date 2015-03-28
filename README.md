@@ -6,7 +6,7 @@ The Taiga plugin for HipChat integration.
 Installation
 ------------
 
-### Taiga Back
+#### Taiga Back
 
 In your Taiga back python virtualenv install the pip package taiga-contrib-hipchat with:
 
@@ -26,7 +26,7 @@ Then run the migrations to generate the new need table:
   python manage.py migrate taiga_contrib_hipchat
 ```
 
-### Taiga Front
+#### Taiga Front
 
 Download in your `dist/js/` directory of Taiga front the `taiga-contrib-hipchat` compiled code:
 
@@ -42,3 +42,8 @@ Include in your dist/js/conf.json in the contribPlugins list the value `"/js/hip
     "contribPlugins": ["/js/hipchat.js"]
 ...
 ```
+
+How to use
+----------
+
+Follow the instructions on our support page [Taiga.io Support > Contrib Plugins > HipChat integration](https://taiga.io/support/hipchat-integration/ "Taiga.io Support > Contrib Plugins > HipChat integration")
