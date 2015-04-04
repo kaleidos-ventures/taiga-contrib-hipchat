@@ -14,5 +14,5 @@
     {% set final_url = resolve_front_url("taskboard", obj.project.slug, obj.slug) %}
     {{ _("Changed Sprint: ") }} <a href="{{final_url}}">{{obj.name}}</a>
 {% endif %}
-{% if change.comment %}<br><b>Comment:</b> {{ change.comment}}{% endif %}
+{% if change.comment %}<br><b>Comment by {{ change.user.name }}:</b> {{ change.comment}}{% endif %}
 <br>
