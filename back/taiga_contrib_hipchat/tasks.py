@@ -35,7 +35,6 @@ def _get_type(obj):
 
 
 def _send_request(url, data):
-    data["notify"] = True
     serialized_data = UnicodeJSONRenderer().render(data)
     headers = {
         'Content-type': 'application/json',
