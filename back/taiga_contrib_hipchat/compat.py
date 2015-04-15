@@ -26,4 +26,4 @@ except ImportError:
 try:
     from taiga.base.api.renderers import UnicodeJSONRenderer
 except ImportError:
-    from rest_framework import UnicodeJSONRenderer
+    from rest_framework.renderers import UnicodeJSONRenderer
