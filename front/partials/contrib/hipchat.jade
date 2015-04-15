@@ -9,6 +9,13 @@ div(contrib-hipchat-webhooks, ng-controller="ContribHipChatAdminController as ct
         div.contrib-form-wrapper
             fieldset
                 input(type="text", name="url", ng-model="hipchathook.url", placeholder="HipChat webhook url", id="url", data-type="url")
+                div.check-item
+                    span Enable HipChat notifications
+                    div.check
+                        input(type="checkbox" name="notification" ng-model="hipchathook.notify") 
+                        div
+                        span.check-text.check-yes(translate="COMMON.YES")
+                        span.check-text.check-no(translate="COMMON.NO")
             fieldset.contrib-test(ng-show="hipchathook.id")
                 a.button-gray(href="", title="Test", ng-click="ctrl.testHook()")
                     span Test

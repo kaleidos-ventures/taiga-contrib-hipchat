@@ -21,4 +21,5 @@ from django.utils.translation import ugettext_lazy as _
 class HipChatHook(models.Model):
     project = models.ForeignKey("projects.Project", null=False, blank=False,
                                 related_name="hipchathooks")
+    notify = models.BooleanField(default=False)
     url = models.URLField(null=False, blank=False, verbose_name=_("URL"))

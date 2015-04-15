@@ -34,7 +34,8 @@ def _get_type(obj):
     return content_type.split(".")[1]
 
 
-def _send_request(url, data):
+def _send_request(url, notify, data):
+    data["notify"] = notify
     serialized_data = UnicodeJSONRenderer().render(data)
     headers = {
         'Content-type': 'application/json',
@@ -63,7 +64,7 @@ def _field_to_attachment(template_field, field_name, values):
 
 
 @app.task
-def change_hipchathook(url, obj, change):
+def change_hipchathook(url, notify, obj, change):
     obj_type = _get_type(obj)
 
     template_change = loader.get_template('taiga_contrib_hipchat/change.jinja')
@@ -101,11 +102,11 @@ def change_hipchathook(url, obj, change):
             if attachment:
                 data["message"] += attachment
 
-    _send_request(url, data)
+    _send_request(url, notify, data)
 
 
 @app.task
-def create_hipchathook(url, obj):
+def create_hipchathook(url, notify, obj):
     obj_type = _get_type(obj)
 
     template = loader.get_template('taiga_contrib_hipchat/create.jinja')
@@ -115,11 +116,11 @@ def create_hipchathook(url, obj):
         "message": template.render(context),
         "color": "green",
     }
-    _send_request(url, data)
+    _send_request(url, notify, data)
 
 
 @app.task
-def delete_hipchathook(url, obj):
+def delete_hipchathook(url, notify, obj):
     obj_type = _get_type(obj)
 
     template = loader.get_template('taiga_contrib_hipchat/delete.jinja')
@@ -130,14 +131,14 @@ def delete_hipchathook(url, obj):
         "color": "red",
     }
 
-    _send_request(url, data)
+    _send_request(url, notify, data)
 
 
 @app.task
-def test_hipchathook(url):
+def test_hipchathook(url, notify):
     data = {
         "message": "<b>Test</b><br/>Test <a href='http://hipchat.com'>HipChat</a> message",
         "color": "purple",
     }
 
-    _send_request(url, data)
+    _send_request(url, notify, data)

@@ -28,6 +28,7 @@ def _get_project_hipchathooks(project):
         hipchathooks.append({
             "id": hipchathook.pk,
             "url": hipchathook.url,
+            "notify": hipchathook.notify,
         })
     return hipchathooks
 
@@ -53,7 +54,7 @@ def on_new_history_entry(sender, instance, created, **kwargs):
         extra_args = []
 
     for hipchathook in hipchathooks:
-        args = [hipchathook["url"], obj] + extra_args
+        args = [hipchathook["url"], hipchathook["notify"], obj] + extra_args
 
         if settings.CELERY_ENABLED:
             task.delay(*args)

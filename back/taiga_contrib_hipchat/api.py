@@ -37,6 +37,6 @@ class HipChatHookViewSet(ModelCrudViewSet):
         hipchathook = self.get_object()
         self.check_permissions(request, 'test', hipchathook)
 
-        tasks.test_hipchathook(hipchathook.url)
+        tasks.test_hipchathook(hipchathook.url, hipchathook.notify)
 
         return response.NoContent()
