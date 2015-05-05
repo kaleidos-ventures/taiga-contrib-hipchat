@@ -2,7 +2,11 @@
 |  $templateCache.put('contrib/hipchat', '''
 div(contrib-hipchat-webhooks, ng-controller="ContribHipChatAdminController as ctrl")
     header
-        h1(tg-main-title)
+        h1
+            span.project-name
+                | {{::project.name}}
+            span.green
+                | {{::sectionName}}
 
     form
         label(for="url") HipChat webhook url

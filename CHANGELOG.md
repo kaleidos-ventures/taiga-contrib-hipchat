@@ -3,4 +3,4 @@
 
 ## 0.0.3
 
-- Add compatibility with taiga-back 1.7.
+- Add compatibility with taiga >= 1.7.
