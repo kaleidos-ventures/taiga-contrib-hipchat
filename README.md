@@ -32,7 +32,7 @@ Download in your `dist/js/` directory of Taiga front the `taiga-contrib-hipchat`
 
 ```bash
   cd dist/js
-  wget "https://raw.githubusercontent.com/taigaio/taiga-contrib-hipchat/$(pip show taiga-contrib-github-hipchat | awk '/^Version: /{print $2}')/front/dist/hipchat.js"
+  wget "https://raw.githubusercontent.com/taigaio/taiga-contrib-hipchat/$(pip show taiga-contrib-hipchat | awk '/^Version: /{print $2}')/front/dist/hipchat.js"
 ```
 
 Include in your dist/js/conf.json in the contribPlugins list the value `"/js/hipchat.js"`:
