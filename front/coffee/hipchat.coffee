@@ -24,13 +24,13 @@ class HipChatAdmin
         "$rootScope",
         "$scope",
         "$tgRepo",
-        "$appTitle",
+        "tgAppMetaService",
         "$tgConfirm",
         "$tgHttp",
     ]
 
-    constructor: (@rootScope, @scope, @repo, @appTitle, @confirm, @http) ->
-        @scope.sectionName = "HipChat"
+    constructor: (@rootScope, @scope, @repo, @appMetaService, @confirm, @http) ->
+        @scope.sectionName = "HipChat" # i18n
         @scope.sectionSlug = "hipchat"
 
         @scope.$on "project:loaded", =>
@@ -40,7 +40,10 @@ class HipChatAdmin
                 @scope.hipchathook = {project: @scope.projectId}
                 if hipchathooks.length > 0
                     @scope.hipchathook = hipchathooks[0]
-                @appTitle.set("HipChat - " + @scope.project.name)
+
+                title = "#{@scope.sectionName} - Plugins - #{@scope.project.name}" # i18n
+                description = @scope.project.description
+                @appMetaService.setAll(title, description)
 
             promise.then null, =>
                 @confirm.notify("error")

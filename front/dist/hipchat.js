@@ -29,13 +29,13 @@
   };
 
   HipChatAdmin = (function() {
-    HipChatAdmin.$inject = ["$rootScope", "$scope", "$tgRepo", "$appTitle", "$tgConfirm", "$tgHttp"];
+    HipChatAdmin.$inject = ["$rootScope", "$scope", "$tgRepo", "tgAppMetaService", "$tgConfirm", "$tgHttp"];
 
-    function HipChatAdmin(rootScope, scope, repo, appTitle, confirm, http) {
+    function HipChatAdmin(rootScope, scope, repo, appMetaService, confirm, http) {
       this.rootScope = rootScope;
       this.scope = scope;
       this.repo = repo;
-      this.appTitle = appTitle;
+      this.appMetaService = appMetaService;
       this.confirm = confirm;
       this.http = http;
       this.scope.sectionName = "HipChat";
@@ -47,13 +47,16 @@
             project: _this.scope.projectId
           });
           promise.then(function(hipchathooks) {
+            var description, title;
             _this.scope.hipchathook = {
               project: _this.scope.projectId
             };
             if (hipchathooks.length > 0) {
               _this.scope.hipchathook = hipchathooks[0];
             }
-            return _this.appTitle.set("HipChat - " + _this.scope.project.name);
+            title = _this.scope.sectionName + " - Plugins - " + _this.scope.project.name;
+            description = _this.scope.project.description;
+            return _this.appMetaService.setAll(title, description);
           });
           return promise.then(null, function() {
             return _this.confirm.notify("error");
