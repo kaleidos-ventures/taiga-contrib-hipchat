@@ -1,5 +1,7 @@
 # Changelog #
 
+## 0.0.6 (2015-09-08)
+- Fixing js loading issue
 
 ## 0.0.5 (2015-06-18)
 - Add compatibility with taiga >= 1.8.
