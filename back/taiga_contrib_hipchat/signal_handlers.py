@@ -29,6 +29,20 @@ def _get_project_hipchathooks(project):
             "id": hipchathook.pk,
             "url": hipchathook.url,
             "notify": hipchathook.notify,
+            "notify_config": {
+                "notify_issue_create": hipchathook.notify_issue_create,
+                "notify_issue_change": hipchathook.notify_issue_change,
+                "notify_issue_delete": hipchathook.notify_issue_delete,
+                "notify_userstory_create": hipchathook.notify_userstory_create,
+                "notify_userstory_change": hipchathook.notify_userstory_change,
+                "notify_userstory_delete": hipchathook.notify_userstory_delete,
+                "notify_task_create": hipchathook.notify_task_create,
+                "notify_task_change": hipchathook.notify_task_change,
+                "notify_task_delete": hipchathook.notify_task_delete,
+                "notify_wikipage_create": hipchathook.notify_wikipage_create,
+                "notify_wikipage_change": hipchathook.notify_wikipage_change,
+                "notify_wikipage_delete": hipchathook.notify_wikipage_delete
+            }
         })
     return hipchathooks
 
@@ -57,7 +71,10 @@ def on_new_history_entry(sender, instance, created, **kwargs):
         extra_args = []
 
     for hipchathook in hipchathooks:
-        args = [hipchathook["url"], hipchathook["notify"], obj] + extra_args
+        args = [
+            hipchathook["url"], hipchathook["notify"],
+            hipchathook["notify_config"], obj
+        ] + extra_args
 
         if settings.CELERY_ENABLED:
             task.delay(*args)
