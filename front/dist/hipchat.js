@@ -49,7 +49,19 @@
           promise.then(function(hipchathooks) {
             var description, title;
             _this.scope.hipchathook = {
-              project: _this.scope.projectId
+              project: _this.scope.projectId,
+              notify_userstory_create: true,
+              notify_userstory_change: true,
+              notify_userstory_delete: true,
+              notify_task_create: true,
+              notify_task_change: true,
+              notify_task_delete: true,
+              notify_issue_create: true,
+              notify_issue_change: true,
+              notify_issue_delete: true,
+              notify_wikipage_create: true,
+              notify_wikipage_change: true,
+              notify_wikipage_delete: true
             };
             if (hipchathooks.length > 0) {
               _this.scope.hipchathook = hipchathooks[0];
@@ -115,7 +127,19 @@
             promise = $repo.remove($scope.hipchathook);
             promise.then(function(data) {
               return $scope.hipchathook = {
-                project: $scope.projectId
+                project: $scope.projectId,
+                notify_userstory_create: true,
+                notify_userstory_change: true,
+                notify_userstory_delete: true,
+                notify_task_create: true,
+                notify_task_change: true,
+                notify_task_delete: true,
+                notify_issue_create: true,
+                notify_issue_change: true,
+                notify_issue_delete: true,
+                notify_wikipage_create: true,
+                notify_wikipage_change: true,
+                notify_wikipage_delete: true
               };
             });
           }
