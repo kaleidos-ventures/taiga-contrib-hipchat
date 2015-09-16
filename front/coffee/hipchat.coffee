@@ -37,7 +37,21 @@ class HipChatAdmin
             promise = @repo.queryMany("hipchat", {project: @scope.projectId})
 
             promise.then (hipchathooks) =>
-                @scope.hipchathook = {project: @scope.projectId}
+                @scope.hipchathook = {
+                    project: @scope.projectId,
+                    notify_userstory_create: true,
+                    notify_userstory_change: true,
+                    notify_userstory_delete: true,
+                    notify_task_create: true,
+                    notify_task_change: true,
+                    notify_task_delete: true,
+                    notify_issue_create: true,
+                    notify_issue_change: true,
+                    notify_issue_delete: true,
+                    notify_wikipage_create: true,
+                    notify_wikipage_change: true,
+                    notify_wikipage_delete: true
+                }
                 if hipchathooks.length > 0
                     @scope.hipchathook = hipchathooks[0]
 
@@ -80,7 +94,21 @@ HipChatWebhooksDirective = ($repo, $confirm, $loading) ->
             else
                 promise = $repo.remove($scope.hipchathook)
                 promise.then (data) ->
-                    $scope.hipchathook = {project: $scope.projectId}
+                    $scope.hipchathook = {
+                        project: $scope.projectId,
+                        notify_userstory_create: true,
+                        notify_userstory_change: true,
+                        notify_userstory_delete: true,
+                        notify_task_create: true,
+                        notify_task_change: true,
+                        notify_task_delete: true,
+                        notify_issue_create: true,
+                        notify_issue_change: true,
+                        notify_issue_delete: true,
+                        notify_wikipage_create: true,
+                        notify_wikipage_change: true,
+                        notify_wikipage_delete: true
+                    }
 
             promise.then (data)->
                 currentLoading.finish()
