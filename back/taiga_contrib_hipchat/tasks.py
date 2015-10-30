@@ -50,14 +50,14 @@ def _send_request(url, notify, data):
 
 def _markdown_field_to_attachment(template_field, field_name, values):
     context = Context({"field_name": field_name, "values": values})
-    change_field_text = template_field.render(context)
+    change_field_text = template_field.render(context.flatten())
 
     return change_field_text.strip()
 
 
 def _field_to_attachment(template_field, field_name, values):
     context = Context({"field_name": field_name, "values": values})
-    change_field_text = template_field.render(context)
+    change_field_text = template_field.render(context.flatten())
 
     return change_field_text.strip()
 
@@ -75,7 +75,7 @@ def change_hipchathook(url, notify, notify_config, obj, change):
     template_change = loader.get_template('taiga_contrib_hipchat/change.jinja')
     context = Context({"obj": obj, "obj_type": obj_type, "change": change})
 
-    change_text = template_change.render(context)
+    change_text = template_change.render(context.flatten())
     data = {"message": change_text.strip()}
     data["color"] = "yellow"
 
@@ -121,7 +121,7 @@ def create_hipchathook(url, notify, notify_config, obj):
     context = Context({"obj": obj, "obj_type": obj_type})
 
     data = {
-        "message": template.render(context),
+        "message": template.render(context.flatten()),
         "color": "green",
     }
     _send_request(url, notify, data)
@@ -138,7 +138,7 @@ def delete_hipchathook(url, notify, notify_config, obj):
     context = Context({"obj": obj, "obj_type": obj_type})
 
     data = {
-        "message": template.render(context),
+        "message": template.render(context.flatten()),
         "color": "red",
     }
 
