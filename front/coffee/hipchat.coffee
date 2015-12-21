@@ -1,23 +1,6 @@
-@.taigaContribPlugins = @.taigaContribPlugins or []
-
-hipChatInfo = {
-    slug: "hipchat"
-    name: "HipChat"
-    type: "admin"
-    module: 'taigaContrib.hipchat'
-}
-
-@.taigaContribPlugins.push(hipChatInfo)
-
-module = angular.module('taigaContrib.hipchat', [])
-
 debounce = (wait, func) ->
     return _.debounce(func, wait, {leading: true, trailing: false})
 
-initHipChatPlugin = ($tgUrls) ->
-    $tgUrls.update({
-        "hipchat": "/hipchat"
-    })
 
 class HipChatAdmin
     @.$inject = [
@@ -69,7 +52,6 @@ class HipChatAdmin
         promise.error (data, status) =>
             @confirm.notify("error")
 
-module.controller("ContribHipChatAdminController", HipChatAdmin)
 
 HipChatWebhooksDirective = ($repo, $confirm, $loading) ->
     link = ($scope, $el, $attrs) ->
@@ -127,6 +109,14 @@ HipChatWebhooksDirective = ($repo, $confirm, $loading) ->
 
     return {link:link}
 
+
+module = angular.module('taigaContrib.hipchat', [])
+
+module.controller("ContribHipChatAdminController", HipChatAdmin)
 module.directive("contribHipchatWebhooks", ["$tgRepo", "$tgConfirm", "$tgLoading", HipChatWebhooksDirective])
 
+initHipChatPlugin = ($tgUrls) ->
+    $tgUrls.update({
+        "hipchat": "/hipchat"
+    })
 module.run(["$tgUrls", initHipChatPlugin])
