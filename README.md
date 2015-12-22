@@ -26,20 +26,25 @@ Then run the migrations to generate the new need table:
   python manage.py migrate taiga_contrib_hipchat
 ```
 
-#### Taiga Front
+### Taiga Front
 
-Download in your `dist/js/` directory of Taiga front the `taiga-contrib-hipchat` compiled code:
+Download in your `dist/plugins/` directory of Taiga front the `taiga-contrib-hipchat` compiled code (you need subversion in your system):
 
 ```bash
-  cd dist/js
-  wget "https://raw.githubusercontent.com/taigaio/taiga-contrib-hipchat/$(pip show taiga-contrib-hipchat | awk '/^Version: /{print $2}')/front/dist/hipchat.js"
+  cd dist/
+  mkdir -p plugins
+  cd plugins
+  svn export "https://github.com/taigaio/taiga-contrib-hipchat/tags/$(pip show taiga-contrib-hipchat | awk '/^Version: /{print $2}')/front/dist" "hipchat"
 ```
 
-Include in your dist/js/conf.json in the contribPlugins list the value `"/js/hipchat.js"`:
+Include in your dist/conf.json in the contribPlugins list the value `"/plugins/hipchat/hipchat.json"`:
 
 ```json
 ...
-    "contribPlugins": ["/js/hipchat.js"]
+    "contribPlugins": [
+        (...)
+        "/plugins/hipchat/hipchat.json"
+    ]
 ...
 ```
 
