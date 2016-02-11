@@ -4,6 +4,6 @@
     "description": "Integrate Taiga with HipChat (https://www.hipchat.com)",
     "type": "admin",
     "module": "taigaContrib.hipchat",
-    "template": "plugin/hipchat",
+    "template": "/plugins/hipchat/hipchat.html",
     "js": "/plugins/hipchat/hipchat.js"
 }
