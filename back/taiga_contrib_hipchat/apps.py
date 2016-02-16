@@ -17,22 +17,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.apps import AppConfig
-from django.db.models import signals
-
-from . import signal_handlers as handlers
-from .api import HipChatHookViewSet
-from taiga.projects.history.models import HistoryEntry
-
-# Register route
-from taiga.contrib_routers import router
-router.register(r"hipchat", HipChatHookViewSet, base_name="hipchat")
 
 
 def connect_taiga_contrib_hipchat_signals():
+    from django.db.models import signals
+    from taiga.projects.history.models import HistoryEntry
+    from . import signal_handlers as handlers
     signals.post_save.connect(handlers.on_new_history_entry, sender=HistoryEntry, dispatch_uid="taiga_contrib_hipchat")
 
 
 def disconnect_taiga_contrib_hipchat_signals():
+    from django.db.models import signals
     signals.post_save.disconnect(dispatch_uid="taiga_contrib_hipchat")
 
 
@@ -41,4 +36,9 @@ class TaigaContribHipChatAppConfig(AppConfig):
     verbose_name = "Taiga contrib HipChat App Config"
 
     def ready(self):
+        from taiga.contrib_routers import router
+        from .api import HipChatHookViewSet
+
+        router.register(r"hipchat", HipChatHookViewSet, base_name="hipchat")
+
         connect_taiga_contrib_hipchat_signals()
