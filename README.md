@@ -100,6 +100,13 @@ Include in your 'dist/conf.json' in the 'contribPlugins' list the value `"/plugi
 ...
 ```
 
+If you only want to build `dist` use:
+
+```bash
+  npm install
+  gulp build
+```
+
 
 How to use
 ----------
