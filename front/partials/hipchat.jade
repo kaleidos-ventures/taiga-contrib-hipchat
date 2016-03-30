@@ -7,9 +7,9 @@ div(contrib-hipchat-webhooks, ng-controller="ContribHipChatAdminController as ct
                 | {{::sectionName}}
 
     form
-        fieldset
-            label(for="url") HipChat webhook url
-            div.contrib-form-wrapper
+        label(for="url") HipChat webhook url
+        div.contrib-form-wrapper
+            fieldset
                 input.contrib-input(
                     type="text"
                     name="url"
@@ -18,12 +18,8 @@ div(contrib-hipchat-webhooks, ng-controller="ContribHipChatAdminController as ct
                     id="url"
                     data-type="url"
                 )
-                a.contrib-test.button-gray(
-                    href=""
-                    title="Test"
-                    ng-click="ctrl.testHook()"
-                    ng-show="hipchathook.id"
-                )
+            fieldset(ng-show="hipchathook.id")
+                a.contrib-test.button-gray(href="", title="Test", ng-click="ctrl.testHook()")
                     span Test
         fieldset
             h2 Notifications on Hipchat
