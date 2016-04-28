@@ -140,6 +140,7 @@ div(contrib-hipchat-webhooks, ng-controller="ContribHipChatAdminController as ct
             span Save
 
     a.help-button(href="https://taiga.io/support/hipchat-integration/", target="_blank")
-        svg.icon.icon-question
-            use(xlink:href="#icon-question")
+        tg-svg(
+            svg-icon="icon-question"
+        )
         span Do you need help? Check out our support page!
