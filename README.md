@@ -110,4 +110,4 @@ and use:
 How to use
 ----------
 
-Follow the instructions on our support page [Taiga.io Support > Contrib Plugins > HipChat integration](https://taiga.io/support/hipchat-integration/ "Taiga.io Support > Contrib Plugins > HipChat integration")
+Follow the instructions on our support page [Taiga.io Support > Contrib Plugins > HipChat integration](https://tree.taiga.io/support/contrib-plugins/hipchat-integration/ "Taiga.io Support > Contrib Plugins > HipChat integration")
