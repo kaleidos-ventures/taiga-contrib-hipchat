@@ -26,6 +26,13 @@ class HipChatHook(models.Model):
     notify = models.BooleanField(default=False)
     url = models.URLField(null=False, blank=False, verbose_name=_("URL"))
 
+    notify_epic_create = models.BooleanField(default=True)
+    notify_epic_change = models.BooleanField(default=True)
+    notify_epic_delete = models.BooleanField(default=True)
+
+    notify_relateduserstory_create = models.BooleanField(default=True)
+    notify_relateduserstory_delete = models.BooleanField(default=True)
+    
     notify_issue_create = models.BooleanField(default=True)
     notify_issue_change = models.BooleanField(default=True)
     notify_issue_delete = models.BooleanField(default=True)

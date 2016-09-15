@@ -1,4 +1,10 @@
-{% if obj_type == "issue" %}
+{% if obj_type == "epic" %}
+    {{ _("Deleted Epic: ") }} #{{obj.ref}}: {{obj.subject}}
+{% elif obj_type == "relateduserstory" %}
+    {% set userstory_url = resolve_front_url("userstory", obj.project.slug, obj.user_story.ref) %}
+    {% set epic_url = resolve_front_url("epic", obj.project.slug, obj.epic.ref) %}
+    {{ _("Related user story deleted: ") }} #{{obj.user_story.ref}}: {{obj.user_story.subject}} in the epic <a href="{{epic_url}}">#{{obj.epic.ref}}: {{obj.epic.subject|safe}}</a>
+{% elif obj_type == "issue" %}
     {{ _("Deleted Issue: ") }} #{{obj.ref}}: {{obj.subject}}
 {% elif obj_type == "task" %}
     {{ _("Deleted Task: ") }} #{{obj.ref}}: {{obj.subject}}

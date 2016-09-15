@@ -32,6 +32,11 @@ def _get_project_hipchathooks(project):
             "url": hipchathook.url,
             "notify": hipchathook.notify,
             "notify_config": {
+                "notify_epic_create": hipchathook.notify_epic_create,
+                "notify_epic_change": hipchathook.notify_epic_change,
+                "notify_epic_delete": hipchathook.notify_epic_delete,
+                "notify_relateduserstory_create": hipchathook.notify_relateduserstory_create,
+                "notify_relateduserstory_delete": hipchathook.notify_relateduserstory_delete,
                 "notify_issue_create": hipchathook.notify_issue_create,
                 "notify_issue_change": hipchathook.notify_issue_change,
                 "notify_issue_delete": hipchathook.notify_issue_delete,

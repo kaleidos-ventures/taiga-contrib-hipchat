@@ -31,6 +31,51 @@ contrib-hipchat-webhooks(ng-controller="ContribHipChatAdminController as ctrl")
                     div
                     span.check-text.check-yes(translate="COMMON.YES")
                     span.check-text.check-no(translate="COMMON.NO")
+
+        fieldset
+            h2 Notify Epics
+            div.check-item
+                span Create
+                div.check
+                    input(type="checkbox" name="notification" ng-model="hipchathook.notify_epic_create")
+                    div
+                    span.check-text.check-yes(translate="COMMON.YES")
+                    span.check-text.check-no(translate="COMMON.NO")
+
+            div.check-item
+                span Change
+                div.check
+                    input(type="checkbox" name="notification" ng-model="hipchathook.notify_epic_change")
+                    div
+                    span.check-text.check-yes(translate="COMMON.YES")
+                    span.check-text.check-no(translate="COMMON.NO")
+
+            div.check-item
+                span Delete
+                div.check
+                    input(type="checkbox" name="notification" ng-model="hipchathook.notify_epic_delete")
+                    div
+                    span.check-text.check-yes(translate="COMMON.YES")
+                    span.check-text.check-no(translate="COMMON.NO")
+
+          fieldset
+              h2 Notify Epics related user stories
+              div.check-item
+                  span Create
+                  div.check
+                      input(type="checkbox" name="notification" ng-model="hipchathook.notify_relateduserstory_create")
+                      div
+                      span.check-text.check-yes(translate="COMMON.YES")
+                      span.check-text.check-no(translate="COMMON.NO")
+
+              div.check-item
+                  span Delete
+                  div.check
+                      input(type="checkbox" name="notification" ng-model="hipchathook.notify_relateduserstory_delete")
+                      div
+                      span.check-text.check-yes(translate="COMMON.YES")
+                      span.check-text.check-no(translate="COMMON.NO")
+
         fieldset
             h2 Notify User Stories
             .check-item
