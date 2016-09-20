@@ -1,16 +1,14 @@
-div(contrib-hipchat-webhooks, ng-controller="ContribHipChatAdminController as ctrl")
+contrib-hipchat-webhooks(ng-controller="ContribHipChatAdminController as ctrl")
     header
         h1
-            span.project-name
-                | {{::project.name}}
-            span.green
-                | {{::sectionName}}
+            span.project-name {{::project.name}}
+            span.green {{::sectionName}}
 
     form
         label(for="url") HipChat webhook url
-        div.contrib-form-wrapper
-            fieldset
-                input.contrib-input(
+        .contrib-form-wrapper
+            fieldset.contrib-input
+                input(
                     type="text"
                     name="url"
                     ng-model="hipchathook.url"
@@ -18,39 +16,42 @@ div(contrib-hipchat-webhooks, ng-controller="ContribHipChatAdminController as ct
                     id="url"
                     data-type="url"
                 )
-            fieldset(ng-show="hipchathook.id")
-                a.contrib-test.button-gray(href="", title="Test", ng-click="ctrl.testHook()")
-                    span Test
+            fieldset.contrib-test(ng-show="hipchathook.id")
+                a.button-gray(
+                    href=""
+                    title="Test"
+                    ng-click="ctrl.testHook()"
+                ) Test
         fieldset
             h2 Notifications on Hipchat
-            div.check-item
+            .check-item
                 span Enable notifications on Hipchat
-                div.check
+                .check
                     input(type="checkbox" name="notification" ng-model="hipchathook.notify")
                     div
                     span.check-text.check-yes(translate="COMMON.YES")
                     span.check-text.check-no(translate="COMMON.NO")
         fieldset
             h2 Notify User Stories
-            div.check-item
+            .check-item
                 span Create
-                div.check
+                .check
                     input(type="checkbox" name="notification" ng-model="hipchathook.notify_userstory_create")
                     div
                     span.check-text.check-yes(translate="COMMON.YES")
                     span.check-text.check-no(translate="COMMON.NO")
 
-            div.check-item
+            .check-item
                 span Change
-                div.check
+                .check
                     input(type="checkbox" name="notification" ng-model="hipchathook.notify_userstory_change")
                     div
                     span.check-text.check-yes(translate="COMMON.YES")
                     span.check-text.check-no(translate="COMMON.NO")
 
-            div.check-item
+            .check-item
                 span Delete
-                div.check
+                .check
                     input(type="checkbox" name="notification" ng-model="hipchathook.notify_userstory_delete")
                     div
                     span.check-text.check-yes(translate="COMMON.YES")
@@ -58,25 +59,25 @@ div(contrib-hipchat-webhooks, ng-controller="ContribHipChatAdminController as ct
 
         fieldset
             h2 Notify Tasks
-            div.check-item
+            .check-item
                 span Create
-                div.check
+                .check
                     input(type="checkbox" name="notification" ng-model="hipchathook.notify_task_create")
                     div
                     span.check-text.check-yes(translate="COMMON.YES")
                     span.check-text.check-no(translate="COMMON.NO")
 
-            div.check-item
+            .check-item
                 span Change
-                div.check
+                .check
                     input(type="checkbox" name="notification" ng-model="hipchathook.notify_task_change")
                     div
                     span.check-text.check-yes(translate="COMMON.YES")
                     span.check-text.check-no(translate="COMMON.NO")
 
-            div.check-item
+            .check-item
                 span Delete
-                div.check
+                .check
                     input(type="checkbox" name="notification" ng-model="hipchathook.notify_task_delete")
                     div
                     span.check-text.check-yes(translate="COMMON.YES")
@@ -84,25 +85,25 @@ div(contrib-hipchat-webhooks, ng-controller="ContribHipChatAdminController as ct
 
         fieldset
             h2 Notify Issues
-            div.check-item
+            .check-item
                 span Create
-                div.check
+                .check
                     input(type="checkbox" name="notification" ng-model="hipchathook.notify_issue_create")
                     div
                     span.check-text.check-yes(translate="COMMON.YES")
                     span.check-text.check-no(translate="COMMON.NO")
 
-            div.check-item
+            .check-item
                 span Change
-                div.check
+                .check
                     input(type="checkbox" name="notification" ng-model="hipchathook.notify_issue_change")
                     div
                     span.check-text.check-yes(translate="COMMON.YES")
                     span.check-text.check-no(translate="COMMON.NO")
 
-            div.check-item
+            .check-item
                 span Delete
-                div.check
+                .check
                     input(type="checkbox" name="notification" ng-model="hipchathook.notify_issue_delete")
                     div
                     span.check-text.check-yes(translate="COMMON.YES")
@@ -111,32 +112,38 @@ div(contrib-hipchat-webhooks, ng-controller="ContribHipChatAdminController as ct
 
         fieldset
             h2 Notify Wiki
-            div.check-item
+            .check-item
                 span Create
-                div.check
+                .check
                     input(type="checkbox" name="notification" ng-model="hipchathook.notify_wikipage_create")
                     div
                     span.check-text.check-yes(translate="COMMON.YES")
                     span.check-text.check-no(translate="COMMON.NO")
 
-            div.check-item
+            .check-item
                 span Change
-                div.check
+                .check
                     input(type="checkbox" name="notification" ng-model="hipchathook.notify_wikipage_change")
                     div
                     span.check-text.check-yes(translate="COMMON.YES")
                     span.check-text.check-no(translate="COMMON.NO")
 
-            div.check-item
+            .check-item
                 span Delete
-                div.check
+                .check
                     input(type="checkbox" name="notification" ng-model="hipchathook.notify_wikipage_delete")
                     div
                     span.check-text.check-yes(translate="COMMON.YES")
                     span.check-text.check-no(translate="COMMON.NO")
 
-        button(type="submit", class="hidden")
-        a.button-green.submit-button(href="", title="Save", ng-click="ctrl.updateOrCreateHook(hipchathook)")
+        button.hidden(
+            type="submit"
+        )
+        a.button-green.submit-button(
+            href=""
+            title="Save"
+            ng-click="ctrl.updateOrCreateHook(hipchathook)"
+        )
             span Save
 
     a.help-button(
