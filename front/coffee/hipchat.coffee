@@ -34,40 +34,43 @@ class HipChatAdmin
         "tgAppMetaService",
         "$tgConfirm",
         "$tgHttp",
+        "tgProjectService"
     ]
 
-    constructor: (@rootScope, @scope, @repo, @appMetaService, @confirm, @http) ->
+    constructor: (@rootScope, @scope, @repo, @appMetaService, @confirm, @http, @projectService) ->
         @scope.sectionName = "HipChat" # i18n
         @scope.sectionSlug = "hipchat"
 
-        @scope.$on "project:loaded", =>
-            promise = @repo.queryMany("hipchat", {project: @scope.projectId})
+        @scope.project = @projectService.project.toJS()
+        @scope.projectId = @scope.project.id
 
-            promise.then (hipchathooks) =>
-                @scope.hipchathook = {
-                    project: @scope.projectId,
-                    notify_userstory_create: true,
-                    notify_userstory_change: true,
-                    notify_userstory_delete: true,
-                    notify_task_create: true,
-                    notify_task_change: true,
-                    notify_task_delete: true,
-                    notify_issue_create: true,
-                    notify_issue_change: true,
-                    notify_issue_delete: true,
-                    notify_wikipage_create: true,
-                    notify_wikipage_change: true,
-                    notify_wikipage_delete: true
-                }
-                if hipchathooks.length > 0
-                    @scope.hipchathook = hipchathooks[0]
+        promise = @repo.queryMany("hipchat", {project: @scope.projectId})
 
-                title = "#{@scope.sectionName} - Plugins - #{@scope.project.name}" # i18n
-                description = @scope.project.description
-                @appMetaService.setAll(title, description)
+        promise.then (hipchathooks) =>
+            @scope.hipchathook = {
+                project: @scope.projectId,
+                notify_userstory_create: true,
+                notify_userstory_change: true,
+                notify_userstory_delete: true,
+                notify_task_create: true,
+                notify_task_change: true,
+                notify_task_delete: true,
+                notify_issue_create: true,
+                notify_issue_change: true,
+                notify_issue_delete: true,
+                notify_wikipage_create: true,
+                notify_wikipage_change: true,
+                notify_wikipage_delete: true
+            }
+            if hipchathooks.length > 0
+                @scope.hipchathook = hipchathooks[0]
 
-            promise.then null, =>
-                @confirm.notify("error")
+            title = "#{@scope.sectionName} - Plugins - #{@scope.project.name}" # i18n
+            description = @scope.project.description
+            @appMetaService.setAll(title, description)
+
+        promise.then null, =>
+            @confirm.notify("error")
 
     testHook: () ->
         promise = @http.post(@repo.resolveUrlForModel(@scope.hipchathook) + '/test')
