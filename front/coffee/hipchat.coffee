@@ -80,7 +80,7 @@ class HipChatAdmin
             @confirm.notify("error")
 
 
-HipChatWebhooksDirective = ($repo, $confirm, $loading) ->
+HipChatWebhooksDirective = ($repo, $confirm, $loading, $analytics) ->
     link = ($scope, $el, $attrs) ->
         form = $el.find("form").checksley({"onlyOneErrorElement": true})
         submit = debounce 2000, (event) =>
@@ -95,6 +95,7 @@ HipChatWebhooksDirective = ($repo, $confirm, $loading) ->
             if not $scope.hipchathook.id
                 promise = $repo.create("hipchat", $scope.hipchathook)
                 promise.then (data) ->
+                    $analytics.trackEvent("hipchat", "create", "Create hipchat integration", 1)
                     $scope.hipchathook = data
             else if $scope.hipchathook.url
                 promise = $repo.save($scope.hipchathook)
@@ -140,7 +141,7 @@ HipChatWebhooksDirective = ($repo, $confirm, $loading) ->
 module = angular.module('taigaContrib.hipchat', [])
 
 module.controller("ContribHipChatAdminController", HipChatAdmin)
-module.directive("contribHipchatWebhooks", ["$tgRepo", "$tgConfirm", "$tgLoading", HipChatWebhooksDirective])
+module.directive("contribHipchatWebhooks", ["$tgRepo", "$tgConfirm", "$tgLoading", "$tgAnalytics", HipChatWebhooksDirective])
 
 initHipChatPlugin = ($tgUrls) ->
     $tgUrls.update({
