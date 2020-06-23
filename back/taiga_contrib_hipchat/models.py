@@ -21,8 +21,13 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class HipChatHook(models.Model):
-    project = models.ForeignKey("projects.Project", null=False, blank=False,
-                                related_name="hipchathooks")
+    project = models.ForeignKey(
+        "projects.Project",
+        null=False,
+        blank=False,
+        related_name="hipchathooks",
+        on_delete=models.SET_NULL,
+    )
     notify = models.BooleanField(default=False)
     url = models.URLField(null=False, blank=False, verbose_name=_("URL"))
 
@@ -32,7 +37,7 @@ class HipChatHook(models.Model):
 
     notify_relateduserstory_create = models.BooleanField(default=True)
     notify_relateduserstory_delete = models.BooleanField(default=True)
-    
+
     notify_issue_create = models.BooleanField(default=True)
     notify_issue_change = models.BooleanField(default=True)
     notify_issue_delete = models.BooleanField(default=True)
