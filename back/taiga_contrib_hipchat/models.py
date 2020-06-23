@@ -26,7 +26,7 @@ class HipChatHook(models.Model):
         null=False,
         blank=False,
         related_name="hipchathooks",
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
     )
     notify = models.BooleanField(default=False)
     url = models.URLField(null=False, blank=False, verbose_name=_("URL"))
