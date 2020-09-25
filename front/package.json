@@ -1,6 +1,6 @@
 {
   "name": "taiga-contrib-hipchat",
-  "version": "5.5.0",
+  "version": "5.5.1",
   "description": "Taiga contrib plugin for hipchat integration",
   "main": "index.js",
   "repository": {
