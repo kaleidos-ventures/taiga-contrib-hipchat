@@ -1,3 +1,5 @@
+> :warning: **This repository is deprecated**: After Atlassian deprecated HipChat this repository is no longer maintained.
+
 Taiga contrib HipChat
 =====================
 
